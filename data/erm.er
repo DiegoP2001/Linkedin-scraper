@@ -1,0 +1,153 @@
+[alembic_version]
+    *version_num {label:"VARCHAR(32)"}
+[campaign]
+    *id {label:"INTEGER"}
+    *user_id {label:"INTEGER"}
+    created_at {label:"DATETIME"}
+    filter_group_id {label:"INTEGER"}
+    last_run {label:"DATETIME"}
+    latitude {label:"FLOAT"}
+    longitude {label:"FLOAT"}
+    name {label:"VARCHAR"}
+    status {label:"VARCHAR"}
+[filter_group]
+    *id {label:"INTEGER"}
+    created_at {label:"DATETIME"}
+    filters {label:"JSON"}
+    name {label:"VARCHAR"}
+    user_id {label:"INTEGER"}
+[user]
+    *id {label:"INTEGER"}
+    cookies {label:"JSON"}
+    created_at {label:"DATETIME"}
+    email {label:"VARCHAR"}
+    is_superuser {label:"BOOLEAN"}
+    linkedin_password {label:"VARCHAR"}
+    linkedin_profile_url {label:"VARCHAR"}
+    linkedin_username {label:"VARCHAR"}
+    password {label:"VARCHAR"}
+    phone_number {label:"VARCHAR"}
+    twitter_profile_url {label:"VARCHAR"}
+    username {label:"VARCHAR"}
+    wantsEmailNotifications {label:"BOOLEAN"}
+    wantsPushNotifications {label:"BOOLEAN"}
+    wantsSMSNotifications {label:"BOOLEAN"}
+[custom_list_details]
+    *list_name {label:"TEXT"}
+    *search_result_id {label:"INTEGER"}
+    *user_id {label:"INTEGER"}
+[custom_members_list]
+    *name {label:"TEXT"}
+    *user_id {label:"INTEGER"}
+[search_result]
+    *id {label:"INTEGER"}
+    connection_request {label:"BOOLEAN"}
+    connection_request_accepted {label:"BOOLEAN"}
+    created_at {label:"DATETIME"}
+    description {label:"VARCHAR"}
+    email {label:"VARCHAR"}
+    filter_group_id {label:"INTEGER"}
+    first_message_sended {label:"BOOLEAN"}
+    fullname {label:"VARCHAR"}
+    history_id {label:"INTEGER"}
+    is_valuable {label:"BOOLEAN"}
+    job_position {label:"VARCHAR"}
+    location {label:"VARCHAR"}
+    name {label:"VARCHAR"}
+    page {label:"VARCHAR"}
+    param_id {label:"INTEGER"}
+    phone {label:"VARCHAR"}
+    profile_image_src {label:"VARCHAR"}
+    profile_link {label:"VARCHAR"}
+    responded_to_message {label:"BOOLEAN"}
+    role {label:"VARCHAR"}
+    second_message_sended {label:"BOOLEAN"}
+    services {label:"VARCHAR"}
+    user_id {label:"INTEGER"}
+    website {label:"VARCHAR"}
+[scrapping_history]
+    *id {label:"INTEGER"}
+    error_message {label:"VARCHAR"}
+    execution_time {label:"FLOAT"}
+    filter_group_id {label:"INTEGER"}
+    status_code {label:"INTEGER"}
+    success {label:"BOOLEAN"}
+    timestamp {label:"DATETIME"}
+    url {label:"VARCHAR"}
+    user_agent {label:"VARCHAR"}
+    user_id {label:"INTEGER"}
+[parameter]
+    *id {label:"INTEGER"}
+    created_at {label:"DATETIME"}
+    name {label:"VARCHAR"}
+    value {label:"VARCHAR"}
+[message]
+    *id {label:"INTEGER"}
+    created_at {label:"DATETIME"}
+    from_search_result {label:"BOOLEAN"}
+    message {label:"VARCHAR"}
+    message_history_id {label:"INTEGER"}
+    user_notified {label:"BOOLEAN"}
+[message_history]
+    *id {label:"INTEGER"}
+    created_at {label:"DATETIME"}
+    search_result_id {label:"INTEGER"}
+    user_id {label:"INTEGER"}
+[otp]
+    *id {label:"INTEGER"}
+    *user_id {label:"INTEGER"}
+    code {label:"VARCHAR"}
+    created_at {label:"DATETIME"}
+    inactive {label:"BOOLEAN"}
+[proxy]
+    *id {label:"INTEGER"}
+    inactive {label:"BOOLEAN"}
+    ip_addr {label:"VARCHAR"}
+    port {label:"VARCHAR"}
+    spended_mb {label:"FLOAT"}
+    user_id {label:"INTEGER"}
+[scheduled_task]
+    *label_name {label:"VARCHAR"}
+    *user_id {label:"INTEGER"}
+    activation_date {label:"DATETIME"}
+    created_at {label:"DATETIME"}
+    day_of_week {label:"VARCHAR"}
+    hour {label:"INTEGER"}
+    is_executed {label:"BOOLEAN"}
+    is_repeated {label:"BOOLEAN"}
+    minute {label:"INTEGER"}
+    task_name {label:"VARCHAR"}
+    task_params {label:"JSON"}
+[subscription]
+    *id {label:"INTEGER"}
+    auth {label:"VARCHAR"}
+    endpoint {label:"VARCHAR"}
+    p256dh {label:"VARCHAR"}
+    user_id {label:"INTEGER"}
+[task]
+    *id {label:"VARCHAR"}
+    *user_id {label:"INTEGER"}
+    created_at {label:"DATETIME"}
+    name {label:"VARCHAR"}
+    state {label:"VARCHAR"}
+user."id" 1--* campaign."user_id"
+filter_group."id" ?--* campaign."filter_group_id"
+user."id" ?--* filter_group."user_id"
+custom_members_list."name" 1--* custom_list_details."list_name"
+custom_members_list."user_id" 1--* custom_list_details."user_id"
+search_result."id" 1--* custom_list_details."search_result_id"
+user."id" 1--* custom_members_list."user_id"
+parameter."id" ?--* search_result."param_id"
+scrapping_history."id" ?--* search_result."history_id"
+filter_group."id" ?--* search_result."filter_group_id"
+user."id" ?--* search_result."user_id"
+filter_group."id" ?--* scrapping_history."filter_group_id"
+user."id" ?--* scrapping_history."user_id"
+message_history."id" ?--* message."message_history_id"
+search_result."id" ?--* message_history."search_result_id"
+user."id" ?--* message_history."user_id"
+user."id" 1--* otp."user_id"
+user."id" 1--* proxy."user_id"
+user."id" 1--* scheduled_task."user_id"
+user."id" 1--* subscription."user_id"
+user."id" 1--* task."user_id"

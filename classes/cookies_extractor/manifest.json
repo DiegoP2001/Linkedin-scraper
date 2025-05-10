@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Ekicookies",
+    "description": "This extension will be used to send the LinkedIn cookies of the authorized emails of my domain.",
+    "version": "1.0",
+    "permissions": [
+        "cookies"
+    ],
+    "host_permissions": [
+        "https://www.linkedin.com/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": "cookie.png"
+    },
+    "icons": {
+        "256": "cookie.png"
+    }
+}
