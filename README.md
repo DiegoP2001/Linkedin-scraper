@@ -97,4 +97,4 @@ Este proyecto es una plataforma backend desarrollada en **Python + Flask + Selen
 
 ### 🧠 Autor / Colaborador
 
-> Este proyecto fue documentado y optimizado con ❤️ por **Diego Piedra**.
+> Este proyecto fue creado, documentado y optimizado con ❤️ por **Diego Piedra**.
